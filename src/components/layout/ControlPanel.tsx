@@ -14,15 +14,20 @@ export const ControlPanel: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-cyber-bg-secondary/90 backdrop-blur-md border-t border-gray-800 px-4 py-3 z-50">
+    <div className="fixed bottom-0 left-0 right-0 backdrop-blur-md px-4 py-3 z-50" style={{ backgroundColor: 'var(--glass-bg)', borderTop: '1px solid var(--border-color)' }}>
       <div className="max-w-6xl mx-auto flex items-center justify-between gap-4">
         {/* 示例选择 */}
         <div className="flex items-center gap-2">
-          <span className="text-sm text-gray-400 hidden sm:block">示例：</span>
+          <span className="text-sm hidden sm:block" style={{ color: 'var(--text-secondary)' }}>示例：</span>
           <select
             value={currentExample}
             onChange={(e) => setCurrentExample(e.target.value)}
-            className="bg-cyber-bg-card text-white text-sm rounded-lg px-3 py-2 border border-gray-700 focus:border-cyber-accent-cyan focus:outline-none"
+            className="text-sm rounded-lg px-3 py-2 focus:outline-none"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              color: 'var(--text-primary)',
+              border: '1px solid var(--border-color)'
+            }}
           >
             {EXAMPLE_LIST.map((example) => (
               <option key={example.id} value={example.id}>
@@ -35,7 +40,8 @@ export const ControlPanel: React.FC = () => {
         {/* 播放控制 */}
         <div className="flex items-center gap-2">
           <motion.button
-            className="p-2 rounded-lg bg-cyber-bg-card hover:bg-gray-700 text-white disabled:opacity-50"
+            className="p-2 rounded-lg disabled:opacity-50"
+            style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
             onClick={prevStep}
             disabled={currentStep === 0}
             whileHover={{ scale: 1.05 }}
@@ -47,7 +53,8 @@ export const ControlPanel: React.FC = () => {
           </motion.button>
 
           <motion.button
-            className="p-3 rounded-lg gradient-purple-cyan text-white"
+            className="p-3 rounded-lg text-white"
+            style={{ background: 'linear-gradient(to right, var(--accent-purple), var(--accent-cyan))' }}
             onClick={handlePlayPause}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -64,7 +71,8 @@ export const ControlPanel: React.FC = () => {
           </motion.button>
 
           <motion.button
-            className="p-2 rounded-lg bg-cyber-bg-card hover:bg-gray-700 text-white disabled:opacity-50"
+            className="p-2 rounded-lg disabled:opacity-50"
+            style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
             onClick={nextStep}
             disabled={currentStep === STEPS.length - 1}
             whileHover={{ scale: 1.05 }}
@@ -81,7 +89,8 @@ export const ControlPanel: React.FC = () => {
           {/* 速度选择 */}
           <div className="relative">
             <motion.button
-              className="p-2 rounded-lg bg-cyber-bg-card hover:bg-gray-700 text-white text-sm"
+              className="p-2 rounded-lg text-sm"
+              style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}
               onClick={() => setShowSpeedMenu(!showSpeedMenu)}
               whileHover={{ scale: 1.05 }}
             >
@@ -91,14 +100,16 @@ export const ControlPanel: React.FC = () => {
               <motion.div
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="absolute bottom-full mb-2 left-0 bg-cyber-bg-card rounded-lg shadow-lg border border-gray-700 overflow-hidden"
+                className="absolute bottom-full mb-2 left-0 rounded-lg shadow-lg overflow-hidden"
+                style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
               >
                 {['slow', 'medium', 'fast'].map((speed) => (
                   <button
                     key={speed}
-                    className={`block w-full px-4 py-2 text-sm text-left hover:bg-gray-700 ${
-                      animationSpeed === speed ? 'text-cyber-accent-cyan' : 'text-white'
-                    }`}
+                    className="block w-full px-4 py-2 text-sm text-left"
+                    style={{
+                      color: animationSpeed === speed ? 'var(--accent-cyan)' : 'var(--text-primary)'
+                    }}
                     onClick={() => {
                       setAnimationSpeed(speed as 'slow' | 'medium' | 'fast');
                       setShowSpeedMenu(false);
@@ -113,7 +124,11 @@ export const ControlPanel: React.FC = () => {
 
           {/* 音效开关 */}
           <motion.button
-            className={`p-2 rounded-lg ${soundEnabled ? 'bg-cyber-accent-cyan/20 text-cyber-accent-cyan' : 'bg-cyber-bg-card text-gray-500'}`}
+            className="p-2 rounded-lg"
+            style={{
+              backgroundColor: soundEnabled ? 'rgba(79, 172, 254, 0.2)' : 'var(--bg-card)',
+              color: soundEnabled ? 'var(--accent-cyan)' : 'var(--text-secondary)'
+            }}
             onClick={toggleSound}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

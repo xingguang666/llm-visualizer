@@ -5,13 +5,13 @@ export const DepthToggle: React.FC = () => {
   const { depthMode, setDepthMode } = useAppStore();
 
   return (
-    <div className="flex items-center gap-2 bg-cyber-bg-secondary rounded-lg p-1">
+    <div className="flex items-center gap-2 rounded-lg p-1" style={{ backgroundColor: 'var(--bg-secondary)' }}>
       <motion.button
-        className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-          depthMode === 'simple'
-            ? 'gradient-purple-cyan text-white'
-            : 'text-gray-400 hover:text-white'
-        }`}
+        className="px-4 py-2 rounded-md text-sm font-medium transition-all"
+        style={{
+          background: depthMode === 'simple' ? 'linear-gradient(to right, var(--accent-purple), var(--accent-cyan))' : 'transparent',
+          color: depthMode === 'simple' ? '#ffffff' : 'var(--text-secondary)'
+        }}
         onClick={() => setDepthMode('simple')}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}
@@ -20,11 +20,11 @@ export const DepthToggle: React.FC = () => {
       </motion.button>
 
       <motion.button
-        className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${
-          depthMode === 'detailed'
-            ? 'gradient-purple-cyan text-white'
-            : 'text-gray-400 hover:text-white'
-        }`}
+        className="px-4 py-2 rounded-md text-sm font-medium transition-all"
+        style={{
+          background: depthMode === 'detailed' ? 'linear-gradient(to right, var(--accent-purple), var(--accent-cyan))' : 'transparent',
+          color: depthMode === 'detailed' ? '#ffffff' : 'var(--text-secondary)'
+        }}
         onClick={() => setDepthMode('detailed')}
         whileHover={{ scale: 1.02 }}
         whileTap={{ scale: 0.98 }}

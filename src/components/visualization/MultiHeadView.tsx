@@ -16,7 +16,8 @@ export const MultiHeadView: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-white mb-2"
+          className="text-3xl font-bold mb-2"
+          style={{ color: 'var(--text-primary)' }}
         >
           {step.name}
         </motion.h2>
@@ -24,7 +25,7 @@ export const MultiHeadView: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {step.description}
         </motion.p>
@@ -37,7 +38,7 @@ export const MultiHeadView: React.FC = () => {
         transition={{ delay: 0.3 }}
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-gray-300">
+        <p style={{ color: 'var(--text-primary)' }}>
           <HighlightTerm termId="multi-head">多头注意力</HighlightTerm>
           就像用多双眼睛同时看一句话。每个"头"关注不同的关系，
           最后把所有信息合并起来，得到更全面的理解。
@@ -46,7 +47,7 @@ export const MultiHeadView: React.FC = () => {
 
       {/* 多头注意力可视化 */}
       <div className="flex justify-center">
-        <div className="w-full max-w-4xl bg-cyber-bg-card rounded-2xl border border-gray-800 p-6">
+        <div className="w-full max-w-4xl rounded-2xl p-6" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
           {/* 多头示意 */}
           <div className="grid grid-cols-4 gap-4 mb-6">
             {Array.from({ length: headCount }).map((_, i) => (
@@ -55,7 +56,8 @@ export const MultiHeadView: React.FC = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ delay: i * 0.1 }}
-                className="relative aspect-square bg-cyber-bg-secondary rounded-xl border border-gray-700 overflow-hidden"
+                className="relative aspect-square rounded-xl overflow-hidden"
+                style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}
               >
                 {/* 模拟注意力模式 */}
                 <svg viewBox="0 0 100 100" className="w-full h-full">
@@ -72,7 +74,7 @@ export const MultiHeadView: React.FC = () => {
                     />
                   ))}
                 </svg>
-                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs text-gray-400">
+                <div className="absolute bottom-1 left-1/2 transform -translate-x-1/2 text-xs" style={{ color: 'var(--text-secondary)' }}>
                   Head {i + 1}
                 </div>
               </motion.div>
@@ -85,7 +87,8 @@ export const MultiHeadView: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
-              className="text-center text-sm text-gray-400"
+              className="text-center text-sm"
+              style={{ color: 'var(--text-secondary)' }}
             >
               每个注意力头关注不同的语义关系
             </motion.div>
@@ -98,19 +101,20 @@ export const MultiHeadView: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-cyber-bg-card rounded-xl p-6 border border-gray-800"
+        className="rounded-xl p-6"
+        style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
       >
         {depthMode === 'simple' ? (
-          <p className="text-gray-300">
+          <p style={{ color: 'var(--text-primary)' }}>
             <HighlightTerm termId="multi-head">多头注意力</HighlightTerm>就像用多双眼睛同时看，
             每个头可以关注不同的关系。比如一个头关注语法，另一个头关注语义。
           </p>
         ) : (
           <div className="space-y-3">
-            <p className="text-gray-300">
+            <p style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="multi-head">Multi-Head Attention</HighlightTerm>并行运行多个注意力计算。
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               模型有{headCount}个注意力头，每个头可以学习捕捉不同类型的依赖关系。
               最后将所有头的输出拼接并投影到最终维度。
             </p>

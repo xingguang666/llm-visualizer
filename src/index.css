@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* CSS变量定义 */
+/* CSS变量定义 - 暗色主题 (赛博朋克) */
 :root {
   --bg-primary: #0a0a1a;
   --bg-secondary: #12122a;
@@ -14,6 +14,30 @@
   --flow-yellow: #ffd700;
   --text-primary: #ffffff;
   --text-secondary: #a0a0c0;
+  --text-muted: #6b7280;
+  --border-color: #374151;
+  --glass-bg: rgba(26, 26, 58, 0.8);
+  --shadow-glow: rgba(102, 126, 234, 0.5);
+}
+
+/* 亮色主题 (白天模式) */
+[data-theme="light"] {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #f1f5f9;
+  --bg-card: #ffffff;
+  --accent-cyan: #0ea5e9;
+  --accent-purple: #6366f1;
+  --accent-pink: #ec4899;
+  --accent-orange: #f97316;
+  --flow-blue: #0ea5e9;
+  --flow-green: #22c55e;
+  --flow-yellow: #eab308;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --glass-bg: rgba(255, 255, 255, 0.9);
+  --shadow-glow: rgba(99, 102, 241, 0.2);
 }
 
 * {

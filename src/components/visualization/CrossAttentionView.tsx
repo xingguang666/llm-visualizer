@@ -13,7 +13,8 @@ export const CrossAttentionView: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-white mb-2"
+          className="text-3xl font-bold mb-2"
+          style={{ color: 'var(--text-primary)' }}
         >
           {step.name}
         </motion.h2>
@@ -21,7 +22,7 @@ export const CrossAttentionView: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {step.description}
         </motion.p>
@@ -34,7 +35,7 @@ export const CrossAttentionView: React.FC = () => {
         transition={{ delay: 0.3 }}
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-gray-300">
+        <p style={{ color: 'var(--text-primary)' }}>
           <HighlightTerm termId="cross-attention">交叉注意力</HighlightTerm>
           是解码器和编码器之间的桥梁。解码器通过它"回头看"编码器的输出，
           获取输入序列的信息。
@@ -43,7 +44,7 @@ export const CrossAttentionView: React.FC = () => {
 
       {/* 可视化 */}
       <div className="flex justify-center">
-        <div className="w-full max-w-4xl bg-cyber-bg-card rounded-2xl border border-gray-800 p-6">
+        <div className="w-full max-w-4xl rounded-2xl p-6" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
           <div className="relative h-72">
             <svg viewBox="0 0 600 250" className="w-full h-full">
               {/* Encoder输出 */}
@@ -117,19 +118,20 @@ export const CrossAttentionView: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-cyber-bg-card rounded-xl p-6 border border-gray-800"
+        className="rounded-xl p-6"
+        style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
       >
         {depthMode === 'simple' ? (
-          <p className="text-gray-300">
+          <p style={{ color: 'var(--text-primary)' }}>
             <HighlightTerm termId="cross-attention">交叉注意力</HighlightTerm>让解码器能够"回头看"编码器的结果。
             就像翻译时，一边写译文一边参考原文。
           </p>
         ) : (
           <div className="space-y-3">
-            <p className="text-gray-300">
+            <p style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="cross-attention">Cross-Attention</HighlightTerm>连接Encoder和Decoder。
             </p>
-            <ul className="text-gray-400 text-sm space-y-1">
+            <ul className="text-sm space-y-1" style={{ color: 'var(--text-secondary)' }}>
               <li>• <HighlightTerm termId="query">Query</HighlightTerm>来自Decoder当前状态</li>
               <li>• <HighlightTerm termId="key">Key</HighlightTerm>和<HighlightTerm termId="value">Value</HighlightTerm>来自Encoder输出</li>
               <li>• 让Decoder能够参考输入序列的信息</li>

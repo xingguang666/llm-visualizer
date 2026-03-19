@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { DepthMode, AnimationSpeed } from '../types';
+import type { DepthMode, AnimationSpeed, Theme } from '../types';
 
 interface AppState {
   // 模式
@@ -18,6 +18,10 @@ interface AppState {
   // 速度
   animationSpeed: AnimationSpeed;
   setAnimationSpeed: (speed: AnimationSpeed) => void;
+
+  // 主题
+  theme: Theme;
+  toggleTheme: () => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -34,6 +38,9 @@ export const useAppStore = create<AppState>()(
 
       animationSpeed: 'medium',
       setAnimationSpeed: (speed) => set({ animationSpeed: speed }),
+
+      theme: 'dark',
+      toggleTheme: () => set((state) => ({ theme: state.theme === 'dark' ? 'light' : 'dark' })),
     }),
     { name: 'llm-visualizer-settings' }
   )

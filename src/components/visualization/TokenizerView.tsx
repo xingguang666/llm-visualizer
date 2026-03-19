@@ -50,7 +50,8 @@ export const TokenizerView: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-white mb-2"
+          className="text-3xl font-bold mb-2"
+          style={{ color: 'var(--text-primary)' }}
         >
           {step.name}
         </motion.h2>
@@ -58,7 +59,7 @@ export const TokenizerView: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {step.description}
         </motion.p>
@@ -71,7 +72,7 @@ export const TokenizerView: React.FC = () => {
         transition={{ delay: 0.3 }}
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-gray-300">
+        <p style={{ color: 'var(--text-primary)' }}>
           <HighlightTerm termId="tokenization">分词</HighlightTerm>
           是把句子切成有意义的小块（<HighlightTerm termId="token">Token</HighlightTerm>）的过程。
           每个Token会被分配一个唯一的ID，模型通过这些ID来理解和处理文本。
@@ -86,8 +87,13 @@ export const TokenizerView: React.FC = () => {
             className={`px-6 py-3 rounded-xl text-sm font-medium transition-all ${
               activeMethod === method.id
                 ? 'gradient-purple-cyan text-white'
-                : 'bg-cyber-bg-card text-gray-400 hover:text-white border border-gray-700'
+                : ''
             }`}
+            style={activeMethod !== method.id ? {
+              backgroundColor: 'var(--bg-card)',
+              color: 'var(--text-secondary)',
+              border: '1px solid var(--border-color)'
+            } : {}}
             onClick={() => setActiveMethod(method.id)}
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
@@ -105,11 +111,12 @@ export const TokenizerView: React.FC = () => {
           key={activeMethod}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-3xl bg-cyber-bg-card rounded-2xl border border-gray-800 p-6"
+          className="w-full max-w-3xl rounded-2xl p-6"
+          style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
         >
           {/* 方法说明 */}
           <div className="mb-4 text-center">
-            <span className="text-sm text-gray-400">
+            <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               {methods.find(m => m.id === activeMethod)?.description}
             </span>
           </div>
@@ -147,7 +154,8 @@ export const TokenizerView: React.FC = () => {
                         initial={{ opacity: 0, y: 5 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0 }}
-                        className="absolute -bottom-8 left-1/2 -translate-x-1/2 bg-cyber-bg-secondary px-2 py-1 rounded text-xs text-cyber-accent-cyan whitespace-nowrap"
+                        className="absolute -bottom-8 left-1/2 -translate-x-1/2 px-2 py-1 rounded text-xs whitespace-nowrap"
+                        style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--accent-cyan)' }}
                       >
                         ID: {1000 + index}
                       </motion.div>
@@ -157,7 +165,7 @@ export const TokenizerView: React.FC = () => {
               ))}
             </AnimatePresence>
             {tokens.length > displayTokens.length && (
-              <span className="text-gray-400 text-sm py-2">... +{tokens.length - displayTokens.length} 个</span>
+              <span className="text-sm py-2" style={{ color: 'var(--text-secondary)' }}>... +{tokens.length - displayTokens.length} 个</span>
             )}
           </div>
 
@@ -170,21 +178,21 @@ export const TokenizerView: React.FC = () => {
           >
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full gradient-purple-cyan"></div>
-              <span className="text-gray-400">
-                <span className="text-cyber-accent-cyan font-medium">{tokens.length}</span> 个Token
+              <span style={{ color: 'var(--text-secondary)' }}>
+                <span style={{ color: 'var(--accent-cyan)' }} className="font-medium">{tokens.length}</span> 个Token
               </span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-cyber-accent-pink"></div>
-              <span className="text-gray-400">
-                <span className="text-cyber-accent-purple font-medium">{example.input.text.length}</span> 个字符
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--accent-pink)' }}></div>
+              <span style={{ color: 'var(--text-secondary)' }}>
+                <span style={{ color: 'var(--accent-purple)' }} className="font-medium">{example.input.text.length}</span> 个字符
               </span>
             </div>
             {depthMode === 'detailed' && (
               <div className="flex items-center gap-2">
-                <div className="w-3 h-3 rounded-full bg-cyber-flow-green"></div>
-                <span className="text-gray-400">
-                  压缩率: <span className="text-cyber-flow-green font-medium">
+                <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'var(--flow-green)' }}></div>
+                <span style={{ color: 'var(--text-secondary)' }}>
+                  压缩率: <span style={{ color: 'var(--flow-green)' }} className="font-medium">
                     {((1 - tokens.length / example.input.text.length) * 100).toFixed(1)}%
                   </span>
                 </span>
@@ -198,16 +206,17 @@ export const TokenizerView: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 }}
-              className="mt-6 pt-4 border-t border-gray-700"
+              className="mt-6 pt-4"
+              style={{ borderTop: '1px solid var(--border-color)' }}
             >
               <div className="grid grid-cols-2 gap-4 text-sm">
-                <div className="bg-cyber-flow-green/10 rounded-lg p-3">
-                  <span className="text-cyber-flow-green font-medium">✓ 优点</span>
-                  <p className="text-gray-400 mt-1">{methods.find(m => m.id === activeMethod)?.pros}</p>
+                <div className="rounded-lg p-3" style={{ backgroundColor: 'rgba(67, 233, 123, 0.1)' }}>
+                  <span style={{ color: 'var(--flow-green)' }} className="font-medium">✓ 优点</span>
+                  <p style={{ color: 'var(--text-secondary)' }} className="mt-1">{methods.find(m => m.id === activeMethod)?.pros}</p>
                 </div>
-                <div className="bg-cyber-accent-orange/10 rounded-lg p-3">
-                  <span className="text-cyber-accent-orange font-medium">✗ 缺点</span>
-                  <p className="text-gray-400 mt-1">{methods.find(m => m.id === activeMethod)?.cons}</p>
+                <div className="rounded-lg p-3" style={{ backgroundColor: 'rgba(255, 107, 53, 0.1)' }}>
+                  <span style={{ color: 'var(--accent-orange)' }} className="font-medium">✗ 缺点</span>
+                  <p style={{ color: 'var(--text-secondary)' }} className="mt-1">{methods.find(m => m.id === activeMethod)?.cons}</p>
                 </div>
               </div>
             </motion.div>
@@ -220,17 +229,18 @@ export const TokenizerView: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-cyber-bg-card rounded-xl p-6 border border-gray-800"
+        className="rounded-xl p-6"
+        style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
       >
         {depthMode === 'simple' ? (
           <div className="space-y-4">
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed" style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="bpe">BPE</HighlightTerm>
               是最常用的分词方法，它能把经常一起出现的字组合成一个Token。
               比如"餐厅"经常一起出现，就被合并成一个Token，这样模型能更好地理解词的语义。
             </p>
-            <div className="bg-cyber-bg-secondary rounded-lg p-4">
-              <p className="text-gray-400 text-sm">
+            <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+              <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
                 💡 想一想：为什么"美味"在BPE中是一个Token，而不是"美"和"味"两个？
                 因为它们经常一起表达"好吃"的意思，合并后模型更容易理解这个概念。
               </p>
@@ -238,35 +248,35 @@ export const TokenizerView: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            <p className="text-gray-300">
+            <p style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="tokenization">分词</HighlightTerm>
               是NLP的第一步，将连续文本转换为离散的Token序列。
               不同的分词策略会显著影响模型的性能和效率。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
-                <h4 className="text-cyber-accent-orange font-medium mb-2 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyber-accent-orange"></span>
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                <h4 className="font-medium mb-2 flex items-center gap-2" style={{ color: 'var(--accent-orange)' }}>
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--accent-orange)' }}></span>
                   字符级分词
                 </h4>
-                <p className="text-gray-400">词表小但序列长，适合处理未知词多的场景</p>
+                <p style={{ color: 'var(--text-secondary)' }}>词表小但序列长，适合处理未知词多的场景</p>
               </div>
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
-                <h4 className="text-cyber-accent-purple font-medium mb-2 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyber-accent-purple"></span>
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                <h4 className="font-medium mb-2 flex items-center gap-2" style={{ color: 'var(--accent-purple)' }}>
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--accent-purple)' }}></span>
                   BPE分词
                 </h4>
-                <p className="text-gray-400">基于频率合并子词，平衡词表大小和序列长度</p>
+                <p style={{ color: 'var(--text-secondary)' }}>基于频率合并子词，平衡词表大小和序列长度</p>
               </div>
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
-                <h4 className="text-cyber-accent-cyan font-medium mb-2 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyber-accent-cyan"></span>
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                <h4 className="font-medium mb-2 flex items-center gap-2" style={{ color: 'var(--accent-cyan)' }}>
+                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: 'var(--accent-cyan)' }}></span>
                   字节级分词
                 </h4>
-                <p className="text-gray-400">支持所有Unicode字符，适合多语言场景</p>
+                <p style={{ color: 'var(--text-secondary)' }}>支持所有Unicode字符，适合多语言场景</p>
               </div>
             </div>
-            <p className="text-gray-400 text-sm">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               📊 Token数量直接影响模型的计算量：注意力机制的计算复杂度是 O(n²)，
               所以Token越少，计算效率越高。
             </p>

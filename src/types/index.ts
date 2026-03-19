@@ -122,5 +122,8 @@ export type DepthMode = 'simple' | 'detailed';
 // 动画速度
 export type AnimationSpeed = 'slow' | 'medium' | 'fast';
 
+// 主题模式
+export type Theme = 'dark' | 'light';
+
 // 设备类型
 export type DeviceType = 'mobile' | 'tablet' | 'desktop' | 'wide';

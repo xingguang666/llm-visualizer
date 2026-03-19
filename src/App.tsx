@@ -4,10 +4,16 @@ import { ProgressBar } from './components/layout/ProgressBar';
 import { ControlPanel } from './components/layout/ControlPanel';
 import { PipelineContainer } from './components/visualization/PipelineContainer';
 import { ParticleSystem } from './components/effects/ParticleSystem';
-import { usePipelineStore } from './stores';
+import { usePipelineStore, useAppStore } from './stores';
 
 function App() {
-  const { isPlaying, nextStep, currentStep, totalSteps } = usePipelineStore();
+  const { isPlaying, nextStep, pause, currentStep, totalSteps } = usePipelineStore();
+  const { theme } = useAppStore();
+
+  // 应用主题
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   // 自动播放
   useEffect(() => {
@@ -15,11 +21,14 @@ function App() {
       const timer = setInterval(() => {
         if (currentStep < totalSteps - 1) {
           nextStep();
+        } else {
+          // 到达最后一步时自动暂停
+          pause();
         }
       }, 3000);
       return () => clearInterval(timer);
     }
-  }, [isPlaying, currentStep, totalSteps, nextStep]);
+  }, [isPlaying, currentStep, totalSteps, nextStep, pause]);
 
   // 键盘快捷键
   useEffect(() => {
@@ -46,7 +55,7 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-cyber-bg-primary text-white overflow-x-hidden flex flex-col">
+    <div className="min-h-screen bg-cyber-bg-primary overflow-x-hidden flex flex-col" style={{ color: 'var(--text-primary)' }}>
       {/* 粒子背景 */}
       <ParticleSystem />
 

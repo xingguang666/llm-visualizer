@@ -16,7 +16,8 @@ export const PositionalView: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-white mb-2"
+          className="text-3xl font-bold mb-2"
+          style={{ color: 'var(--text-primary)' }}
         >
           {step.name}
         </motion.h2>
@@ -24,7 +25,7 @@ export const PositionalView: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {step.description}
         </motion.p>
@@ -37,7 +38,7 @@ export const PositionalView: React.FC = () => {
         transition={{ delay: 0.3 }}
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-gray-300">
+        <p style={{ color: 'var(--text-primary)' }}>
           <HighlightTerm termId="positional-encoding">位置编码</HighlightTerm>
           给每个Token加上位置信息，让模型知道词语在句子中的先后顺序。
           这就像给每个词语贴上"第几个"的标签。
@@ -46,7 +47,7 @@ export const PositionalView: React.FC = () => {
 
       {/* 可视化 */}
       <div className="flex justify-center">
-        <div className="w-full max-w-4xl bg-cyber-bg-card rounded-2xl border border-gray-800 p-6">
+        <div className="w-full max-w-4xl rounded-2xl p-6" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
           {depthMode === 'simple' ? (
             /* 简单模式：位置信息示意 */
             <div className="space-y-6">
@@ -60,7 +61,7 @@ export const PositionalView: React.FC = () => {
                     transition={{ delay: i * 0.1 }}
                     className="flex flex-col items-center"
                   >
-                    <span className="text-xs text-cyber-accent-cyan mb-1">位置 {i}</span>
+                    <span className="text-xs mb-1" style={{ color: 'var(--accent-cyan)' }}>位置 {i}</span>
                     <span className="token">{token}</span>
                   </motion.div>
                 ))}
@@ -74,22 +75,22 @@ export const PositionalView: React.FC = () => {
                 className="flex justify-center items-center gap-6 text-sm"
               >
                 <div className="text-center">
-                  <p className="text-gray-400 mb-2">词向量</p>
-                  <div className="w-20 h-12 bg-cyber-accent-purple/20 rounded-lg flex items-center justify-center text-cyber-accent-purple">
+                  <p className="mb-2" style={{ color: 'var(--text-secondary)' }}>词向量</p>
+                  <div className="w-20 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'rgba(102, 126, 234, 0.2)', color: 'var(--accent-purple)' }}>
                     [+]
                   </div>
                 </div>
-                <span className="text-2xl text-gray-600">+</span>
+                <span className="text-2xl" style={{ color: 'var(--text-muted)' }}>+</span>
                 <div className="text-center">
-                  <p className="text-gray-400 mb-2">位置向量</p>
-                  <div className="w-20 h-12 bg-cyber-accent-cyan/20 rounded-lg flex items-center justify-center text-cyber-accent-cyan">
+                  <p className="mb-2" style={{ color: 'var(--text-secondary)' }}>位置向量</p>
+                  <div className="w-20 h-12 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'rgba(79, 172, 254, 0.2)', color: 'var(--accent-cyan)' }}>
                     [pos]
                   </div>
                 </div>
-                <span className="text-2xl text-gray-600">=</span>
+                <span className="text-2xl" style={{ color: 'var(--text-muted)' }}>=</span>
                 <div className="text-center">
-                  <p className="text-gray-400 mb-2">最终向量</p>
-                  <div className="w-20 h-12 gradient-purple-cyan-20 rounded-lg flex items-center justify-center text-white">
+                  <p className="mb-2" style={{ color: 'var(--text-secondary)' }}>最终向量</p>
+                  <div className="w-20 h-12 rounded-lg flex items-center justify-center text-white" style={{ background: 'linear-gradient(to right, rgba(102, 126, 234, 0.3), rgba(79, 172, 254, 0.3))' }}>
                     [input]
                   </div>
                 </div>
@@ -99,7 +100,7 @@ export const PositionalView: React.FC = () => {
             /* 详细模式：正弦波可视化 */
             <div className="space-y-6">
               {/* 正弦波示意 */}
-              <div className="relative h-48 bg-cyber-bg-secondary rounded-xl border border-gray-700 overflow-hidden">
+              <div className="relative h-48 rounded-xl overflow-hidden" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                 <svg viewBox="0 0 800 180" className="w-full h-full">
                   {/* 多条正弦曲线表示不同维度 */}
                   {Array.from({ length: 8 }).map((_, i) => (
@@ -145,7 +146,8 @@ export const PositionalView: React.FC = () => {
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ delay: 0.5 + i * 0.1 }}
-                      className="text-xs text-gray-400"
+                      className="text-xs"
+                      style={{ color: 'var(--text-secondary)' }}
                     >
                       {token}
                     </motion.span>
@@ -154,7 +156,7 @@ export const PositionalView: React.FC = () => {
               </div>
 
               {/* 公式 */}
-              <div className="text-center text-sm text-gray-400 font-mono bg-cyber-bg-secondary rounded-lg p-4">
+              <div className="text-center text-sm font-mono rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-secondary)' }}>
                 <p>PE(pos, 2i) = sin(pos / 10000^(2i/d))</p>
                 <p>PE(pos, 2i+1) = cos(pos / 10000^(2i/d))</p>
               </div>
@@ -168,19 +170,20 @@ export const PositionalView: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-cyber-bg-card rounded-xl p-6 border border-gray-800"
+        className="rounded-xl p-6"
+        style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
       >
         {depthMode === 'simple' ? (
-          <p className="text-gray-300">
+          <p style={{ color: 'var(--text-primary)' }}>
             因为Transformer不像RNN那样逐个处理，所以需要用<HighlightTerm termId="positional-encoding">位置编码</HighlightTerm>告诉模型每个词在句子中的位置。
             位置信息会加到词向量上，一起送入模型处理。
           </p>
         ) : (
           <div className="space-y-3">
-            <p className="text-gray-300">
+            <p style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="positional-encoding">位置编码</HighlightTerm>使用正弦和余弦函数为每个位置生成唯一的位置向量。
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               这种设计让模型能够学习相对位置关系，并且可以泛化到训练时未见过的序列长度。
             </p>
           </div>

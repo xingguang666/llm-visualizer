@@ -32,7 +32,8 @@ export const FFNView: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-white mb-2"
+          className="text-3xl font-bold mb-2"
+          style={{ color: 'var(--text-primary)' }}
         >
           {step.name}
         </motion.h2>
@@ -40,7 +41,7 @@ export const FFNView: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {step.description}
         </motion.p>
@@ -48,7 +49,7 @@ export const FFNView: React.FC = () => {
 
       {/* 可视化主体 */}
       <div className="flex justify-center">
-        <div className="w-full max-w-5xl bg-cyber-bg-card rounded-2xl border border-gray-800 p-6">
+        <div className="w-full max-w-5xl rounded-2xl p-6" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
           {/* Token选择器 */}
           <div className="flex justify-center gap-2 mb-6">
             {tokens.map((token, i) => (
@@ -58,8 +59,12 @@ export const FFNView: React.FC = () => {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${
                   selectedToken === i
                     ? 'gradient-purple-cyan text-white'
-                    : 'bg-cyber-bg-secondary text-gray-400 hover:text-white'
+                    : ''
                 }`}
+                style={selectedToken !== i ? {
+                  backgroundColor: 'var(--bg-secondary)',
+                  color: 'var(--text-secondary)'
+                } : {}}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -81,10 +86,16 @@ export const FFNView: React.FC = () => {
                     opacity: currentPhaseIndex >= 0 ? 1 : 0.5
                   }}
                 >
-                  <div className="w-20 h-20 rounded-xl bg-cyber-accent-cyan/20 border-2 border-cyber-accent-cyan flex items-center justify-center mb-2">
-                    <span className="text-cyber-accent-cyan text-2xl font-bold">256</span>
+                  <div
+                    className="w-20 h-20 rounded-xl flex items-center justify-center mb-2"
+                    style={{
+                      backgroundColor: 'rgba(79, 172, 254, 0.15)',
+                      border: '2px solid var(--accent-cyan)'
+                    }}
+                  >
+                    <span style={{ color: 'var(--accent-cyan)', fontSize: '1.5rem', fontWeight: 'bold' }}>256</span>
                   </div>
-                  <span className="text-sm text-gray-400">输入维度</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>输入维度</span>
                 </motion.div>
 
                 {/* 箭头1 */}
@@ -92,18 +103,17 @@ export const FFNView: React.FC = () => {
                   animate={{ opacity: currentPhaseIndex >= 1 ? 1 : 0.3 }}
                   className="flex flex-col items-center"
                 >
-                  <svg width="60" height="24" className="text-cyber-accent-purple">
+                  <svg width="60" height="24">
                     <motion.path
                       d="M 0 12 L 50 12 M 45 6 L 55 12 L 45 18"
-                      stroke="currentColor"
+                      style={{ stroke: 'var(--accent-purple)', fill: 'none' }}
                       strokeWidth="2"
-                      fill="none"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: currentPhaseIndex >= 1 ? 1 : 0 }}
                       transition={{ duration: 0.5 }}
                     />
                   </svg>
-                  <span className="text-xs text-cyber-accent-purple mt-1">×4扩展</span>
+                  <span style={{ color: 'var(--accent-purple)', fontSize: '0.75rem', marginTop: '0.25rem' }}>×4扩展</span>
                 </motion.div>
 
                 {/* 隐藏层 */}
@@ -114,11 +124,17 @@ export const FFNView: React.FC = () => {
                     opacity: currentPhaseIndex >= 1 ? 1 : 0.5
                   }}
                 >
-                  <div className="w-28 h-20 rounded-xl bg-cyber-accent-purple/20 border-2 border-cyber-accent-purple flex flex-col items-center justify-center mb-2">
-                    <span className="text-cyber-accent-purple text-2xl font-bold">1024</span>
-                    <span className="text-xs text-cyber-accent-purple/60">扩展后</span>
+                  <div
+                    className="w-28 h-20 rounded-xl flex flex-col items-center justify-center mb-2"
+                    style={{
+                      backgroundColor: 'rgba(102, 126, 234, 0.15)',
+                      border: '2px solid var(--accent-purple)'
+                    }}
+                  >
+                    <span style={{ color: 'var(--accent-purple)', fontSize: '1.5rem', fontWeight: 'bold' }}>1024</span>
+                    <span style={{ color: 'var(--accent-purple)', fontSize: '0.75rem', opacity: 0.6 }}>扩展后</span>
                   </div>
-                  <span className="text-sm text-gray-400">隐藏层</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>隐藏层</span>
                 </motion.div>
 
                 {/* 激活函数 */}
@@ -126,12 +142,17 @@ export const FFNView: React.FC = () => {
                   animate={{ opacity: currentPhaseIndex >= 2 ? 1 : 0.3 }}
                   className="flex flex-col items-center"
                 >
-                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mb-2 ${
-                    activePhase === 'activate' ? 'bg-cyber-accent-pink/30' : 'bg-cyber-accent-pink/10'
-                  }`}>
-                    <span className="text-cyber-accent-pink font-bold text-sm">{ffn.activation}</span>
+                  <div
+                    className="w-16 h-16 rounded-full flex items-center justify-center mb-2"
+                    style={{
+                      backgroundColor: activePhase === 'activate'
+                        ? 'rgba(240, 147, 251, 0.25)'
+                        : 'rgba(240, 147, 251, 0.1)'
+                    }}
+                  >
+                    <span style={{ color: 'var(--accent-pink)', fontWeight: 'bold', fontSize: '0.875rem' }}>{ffn.activation}</span>
                   </div>
-                  <span className="text-xs text-gray-400">激活</span>
+                  <span className="text-xs" style={{ color: 'var(--text-secondary)' }}>激活</span>
                 </motion.div>
 
                 {/* 箭头2 */}
@@ -139,18 +160,17 @@ export const FFNView: React.FC = () => {
                   animate={{ opacity: currentPhaseIndex >= 3 ? 1 : 0.3 }}
                   className="flex flex-col items-center"
                 >
-                  <svg width="60" height="24" className="text-cyber-flow-green">
+                  <svg width="60" height="24">
                     <motion.path
                       d="M 0 12 L 50 12 M 45 6 L 55 12 L 45 18"
-                      stroke="currentColor"
+                      style={{ stroke: 'var(--flow-green)', fill: 'none' }}
                       strokeWidth="2"
-                      fill="none"
                       initial={{ pathLength: 0 }}
                       animate={{ pathLength: currentPhaseIndex >= 3 ? 1 : 0 }}
                       transition={{ duration: 0.5 }}
                     />
                   </svg>
-                  <span className="text-xs text-cyber-flow-green mt-1">÷4压缩</span>
+                  <span style={{ color: 'var(--flow-green)', fontSize: '0.75rem', marginTop: '0.25rem' }}>÷4压缩</span>
                 </motion.div>
 
                 {/* 输出 */}
@@ -161,10 +181,16 @@ export const FFNView: React.FC = () => {
                     opacity: currentPhaseIndex >= 3 ? 1 : 0.5
                   }}
                 >
-                  <div className="w-20 h-20 rounded-xl bg-cyber-flow-green/20 border-2 border-cyber-flow-green flex items-center justify-center mb-2">
-                    <span className="text-cyber-flow-green text-2xl font-bold">256</span>
+                  <div
+                    className="w-20 h-20 rounded-xl flex items-center justify-center mb-2"
+                    style={{
+                      backgroundColor: 'rgba(67, 233, 123, 0.15)',
+                      border: '2px solid var(--flow-green)'
+                    }}
+                  >
+                    <span style={{ color: 'var(--flow-green)', fontSize: '1.5rem', fontWeight: 'bold' }}>256</span>
                   </div>
-                  <span className="text-sm text-gray-400">输出维度</span>
+                  <span className="text-sm" style={{ color: 'var(--text-secondary)' }}>输出维度</span>
                 </motion.div>
               </div>
 
@@ -177,8 +203,12 @@ export const FFNView: React.FC = () => {
                     className={`px-4 py-2 rounded-lg text-sm transition-all ${
                       activePhase === phase.id
                         ? 'gradient-purple-cyan text-white'
-                        : 'bg-cyber-bg-secondary text-gray-400 hover:text-white'
+                        : ''
                     }`}
+                    style={activePhase !== phase.id ? {
+                      backgroundColor: 'var(--bg-secondary)',
+                      color: 'var(--text-secondary)'
+                    } : {}}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -196,7 +226,7 @@ export const FFNView: React.FC = () => {
                   exit={{ opacity: 0, y: -10 }}
                   className="text-center py-4"
                 >
-                  <p className="text-gray-300">
+                  <p style={{ color: 'var(--text-primary)' }}>
                     {activePhase === 'input' && (
                       <>
                         每个<HighlightTerm termId="token">Token</HighlightTerm>都有一个
@@ -235,7 +265,7 @@ export const FFNView: React.FC = () => {
             /* ===== 详细模式：完整的神经网络可视化 ===== */
             <div className="space-y-6">
               {/* 网络结构SVG */}
-              <div className="relative h-72 bg-cyber-bg-secondary rounded-xl border border-gray-700 overflow-hidden">
+              <div className="relative h-72 rounded-xl overflow-hidden" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)' }}>
                 <svg viewBox="0 0 700 250" className="w-full h-full">
                   {/* 背景网格 */}
                   <defs>
@@ -252,15 +282,14 @@ export const FFNView: React.FC = () => {
                         key={`input-${i}`}
                         cx="80" cy={60 + i * 25}
                         r="8"
-                        fill="#4facfe"
-                        stroke="#4facfe"
+                        style={{ fill: 'var(--accent-cyan)', stroke: 'var(--accent-cyan)' }}
                         strokeWidth="2"
                         initial={{ scale: 0 }}
                         animate={{ scale: currentPhaseIndex >= 0 ? 1 : 0.3 }}
                         transition={{ delay: i * 0.1 }}
                       />
                     ))}
-                    <text x="80" y="230" textAnchor="middle" fill="#4facfe" fontSize="11" fontWeight="500">
+                    <text x="80" y="230" textAnchor="middle" style={{ fill: 'var(--accent-cyan)' }} fontSize="11" fontWeight="500">
                       输入层 ({ffn.inputDim}维)
                     </text>
                   </motion.g>
@@ -272,9 +301,8 @@ export const FFNView: React.FC = () => {
                         key={`line1-${i}-${j}`}
                         x1="88" y1={60 + i * 25}
                         x2="220" y2={30 + j * 20}
-                        stroke="#667eea"
+                        style={{ stroke: 'var(--accent-purple)', opacity: 0.2 }}
                         strokeWidth="0.5"
-                        opacity="0.2"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: 1 }}
                         transition={{ delay: 0.5 + (i * 10 + j) * 0.01, duration: 0.3 }}
@@ -289,15 +317,14 @@ export const FFNView: React.FC = () => {
                         key={`hidden-${i}`}
                         cx="230" cy={30 + i * 20}
                         r="6"
-                        fill="#667eea"
-                        stroke="#667eea"
+                        style={{ fill: 'var(--accent-purple)', stroke: 'var(--accent-purple)' }}
                         strokeWidth="2"
                         initial={{ scale: 0 }}
                         animate={{ scale: currentPhaseIndex >= 1 ? 1 : 0.3 }}
                         transition={{ delay: 0.3 + i * 0.05 }}
                       />
                     ))}
-                    <text x="230" y="240" textAnchor="middle" fill="#667eea" fontSize="11" fontWeight="500">
+                    <text x="230" y="240" textAnchor="middle" style={{ fill: 'var(--accent-purple)' }} fontSize="11" fontWeight="500">
                       隐藏层 ({ffn.hiddenDim}维)
                     </text>
                   </motion.g>
@@ -307,11 +334,11 @@ export const FFNView: React.FC = () => {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: currentPhaseIndex >= 2 ? 1 : 0.3 }}
                   >
-                    <rect x="310" y="90" width="80" height="50" rx="10" fill="rgba(240,147,251,0.2)" stroke="#f093fb" strokeWidth="2"/>
-                    <text x="350" y="120" textAnchor="middle" fill="#f093fb" fontSize="12" fontWeight="600">
+                    <rect x="310" y="90" width="80" height="50" rx="10" style={{ fill: 'rgba(240, 147, 251, 0.2)', stroke: 'var(--accent-pink)' }} strokeWidth="2"/>
+                    <text x="350" y="120" textAnchor="middle" style={{ fill: 'var(--accent-pink)' }} fontSize="12" fontWeight="600">
                       {ffn.activation}
                     </text>
-                    <text x="350" y="155" textAnchor="middle" fill="#f093fb" fontSize="10" opacity="0.7">
+                    <text x="350" y="155" textAnchor="middle" style={{ fill: 'var(--accent-pink)', opacity: 0.7 }} fontSize="10">
                       激活函数
                     </text>
                   </motion.g>
@@ -319,13 +346,12 @@ export const FFNView: React.FC = () => {
                   {/* 箭头：隐藏层→激活 */}
                   <motion.path
                     d="M 260 120 L 305 115"
-                    stroke="#a0a0c0"
+                    style={{ stroke: '#a0a0c0', fill: 'none' }}
                     strokeWidth="1.5"
-                    fill="none"
-                    markerEnd="url(#arrowhead)"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: currentPhaseIndex >= 2 ? 1 : 0 }}
                     transition={{ duration: 0.3 }}
+                    markerEnd="url(#arrowhead)"
                   />
 
                   {/* 隐藏层→输出连线 */}
@@ -335,9 +361,8 @@ export const FFNView: React.FC = () => {
                         key={`line2-${i}-${j}`}
                         x1="400" y1={115}
                         x2="550" y2={60 + j * 25}
-                        stroke="#43e97b"
+                        style={{ stroke: 'var(--flow-green)', opacity: 0.2 }}
                         strokeWidth="0.5"
-                        opacity="0.2"
                         initial={{ pathLength: 0 }}
                         animate={{ pathLength: 1 }}
                         transition={{ delay: 0.5 + (i * 6 + j) * 0.01, duration: 0.3 }}
@@ -352,15 +377,14 @@ export const FFNView: React.FC = () => {
                         key={`output-${i}`}
                         cx="560" cy={60 + i * 25}
                         r="8"
-                        fill="#43e97b"
-                        stroke="#43e97b"
+                        style={{ fill: 'var(--flow-green)', stroke: 'var(--flow-green)' }}
                         strokeWidth="2"
                         initial={{ scale: 0 }}
                         animate={{ scale: currentPhaseIndex >= 3 ? 1 : 0.3 }}
                         transition={{ delay: 0.5 + i * 0.1 }}
                       />
                     ))}
-                    <text x="560" y="230" textAnchor="middle" fill="#43e97b" fontSize="11" fontWeight="500">
+                    <text x="560" y="230" textAnchor="middle" style={{ fill: 'var(--flow-green)' }} fontSize="11" fontWeight="500">
                       输出层 ({ffn.outputDim}维)
                     </text>
                   </motion.g>
@@ -378,17 +402,23 @@ export const FFNView: React.FC = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.5 }}
                   >
-                    <text x="155" y="140" textAnchor="middle" fill="#a0a0c0" fontSize="10">
+                    <text x="155" y="140" textAnchor="middle" style={{ fill: 'var(--text-muted)' }} fontSize="10">
                       W₁: {ffn.inputDim}×{ffn.hiddenDim}
                     </text>
-                    <text x="480" y="140" textAnchor="middle" fill="#a0a0c0" fontSize="10">
+                    <text x="480" y="140" textAnchor="middle" style={{ fill: 'var(--text-muted)' }} fontSize="10">
                       W₂: {ffn.hiddenDim}×{ffn.outputDim}
                     </text>
                   </motion.g>
                 </svg>
 
                 {/* 当前Token指示器 */}
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-lg bg-cyber-accent-cyan/20 text-cyber-accent-cyan text-sm font-medium">
+                <div
+                  className="absolute top-3 left-3 px-3 py-1 rounded-lg text-sm font-medium"
+                  style={{
+                    backgroundColor: 'rgba(79, 172, 254, 0.15)',
+                    color: 'var(--accent-cyan)'
+                  }}
+                >
                   处理: {tokens[selectedToken]}
                 </div>
               </div>
@@ -402,8 +432,12 @@ export const FFNView: React.FC = () => {
                     className={`px-4 py-2 rounded-lg text-sm transition-all ${
                       activePhase === phase.id
                         ? 'gradient-purple-cyan text-white'
-                        : 'bg-cyber-bg-secondary text-gray-400 hover:text-white'
+                        : ''
                     }`}
+                    style={activePhase !== phase.id ? {
+                      backgroundColor: 'var(--bg-secondary)',
+                      color: 'var(--text-secondary)'
+                    } : {}}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -417,15 +451,16 @@ export const FFNView: React.FC = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.3 }}
-                className="bg-cyber-bg-secondary rounded-lg p-4 text-center"
+                className="rounded-lg p-4 text-center"
+                style={{ backgroundColor: 'var(--bg-secondary)' }}
               >
-                <p className="text-sm text-gray-400 mb-2">
+                <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
                   <HighlightTerm termId="ffn">FFN</HighlightTerm> 计算公式：
                 </p>
-                <p className="font-mono text-cyber-accent-cyan">
+                <p className="font-mono" style={{ color: 'var(--accent-cyan)' }}>
                   FFN(x) = <Tooltip termId="activation">{ffn.activation}</Tooltip>(xW₁ + b₁)W₂ + b₂
                 </p>
-                <p className="text-xs text-gray-500 mt-2">
+                <p className="text-xs mt-2" style={{ color: 'var(--text-muted)' }}>
                   维度变化: {ffn.inputDim} → {ffn.hiddenDim} → {ffn.outputDim}
                 </p>
               </motion.div>
@@ -439,54 +474,55 @@ export const FFNView: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-cyber-bg-card rounded-xl p-6 border border-gray-800"
+        className="rounded-xl p-6"
+        style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
       >
         {depthMode === 'simple' ? (
           <div className="space-y-4">
-            <p className="text-gray-300 text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed" style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="ffn">前馈网络</HighlightTerm>就像一个"信息加工厂"，
               把每个<HighlightTerm termId="token">Token</HighlightTerm>单独处理。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
                 <div className="text-2xl mb-2">📥</div>
-                <h4 className="text-cyber-accent-cyan font-medium mb-1">第一步：接收输入</h4>
-                <p className="text-gray-400 text-sm">每个Token的256维向量作为输入</p>
+                <h4 style={{ color: 'var(--accent-cyan)' }} className="font-medium mb-1">第一步：接收输入</h4>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>每个Token的256维向量作为输入</p>
               </div>
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
                 <div className="text-2xl mb-2">🔬</div>
-                <h4 className="text-cyber-accent-purple font-medium mb-1">第二步：扩展处理</h4>
-                <p className="text-gray-400 text-sm">维度放大4倍，增加表达能力</p>
+                <h4 style={{ color: 'var(--accent-purple)' }} className="font-medium mb-1">第二步：扩展处理</h4>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>维度放大4倍，增加表达能力</p>
               </div>
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
                 <div className="text-2xl mb-2">📤</div>
-                <h4 className="text-cyber-flow-green font-medium mb-1">第三步：压缩输出</h4>
-                <p className="text-gray-400 text-sm">压缩回256维，准备下一步</p>
+                <h4 style={{ color: 'var(--flow-green)' }} className="font-medium mb-1">第三步：压缩输出</h4>
+                <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>压缩回256维，准备下一步</p>
               </div>
             </div>
           </div>
         ) : (
           <div className="space-y-4">
-            <p className="text-gray-300">
+            <p style={{ color: 'var(--text-primary)' }}>
               <HighlightTerm termId="ffn">Feed-Forward Network</HighlightTerm>是Transformer中
               每个<HighlightTerm termId="token">Token</HighlightTerm>独立经过的两层全连接网络。
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
-                <h4 className="text-cyber-accent-purple font-medium mb-2 flex items-center gap-2">
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                <h4 style={{ color: 'var(--accent-purple)' }} className="font-medium mb-2 flex items-center gap-2">
                   <span>📐</span> 维度变化的意义
                 </h4>
-                <ul className="text-sm text-gray-400 space-y-2">
+                <ul className="text-sm space-y-2" style={{ color: 'var(--text-secondary)' }}>
                   <li>• 扩展维度：增加模型容量，学习更多特征组合</li>
                   <li>• 激活函数：引入非线性，突破线性变换的限制</li>
                   <li>• 压缩维度：保持输出与输入维度一致，便于残差连接</li>
                 </ul>
               </div>
-              <div className="bg-cyber-bg-secondary rounded-lg p-4">
-                <h4 className="text-cyber-accent-cyan font-medium mb-2 flex items-center gap-2">
+              <div className="rounded-lg p-4" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+                <h4 style={{ color: 'var(--accent-cyan)' }} className="font-medium mb-2 flex items-center gap-2">
                   <span>⚡</span> 关键特点
                 </h4>
-                <ul className="text-sm text-gray-400 space-y-2">
+                <ul className="text-sm space-y-2" style={{ color: 'var(--text-secondary)' }}>
                   <li>• 每个Token独立处理（无Token间交互）</li>
                   <li>• 参数量：2×d×4d = 8d²（约占总参数的2/3）</li>
                   <li>• 常用激活：<Tooltip termId="gelu">GELU</Tooltip> 比 <Tooltip termId="relu">ReLU</Tooltip> 更平滑</li>

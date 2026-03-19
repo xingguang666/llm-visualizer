@@ -58,45 +58,46 @@ export const Tooltip: React.FC<TooltipProps> = ({ termId, children, className = 
             transition={{ duration: 0.2 }}
             className={`absolute z-50 ${
               position === 'top' ? 'bottom-full mb-2' : 'top-full mt-2'
-            } left-1/2 -translate-x-1/2 w-72 p-4 rounded-xl bg-cyber-bg-card border border-gray-700 shadow-xl`}
+            } left-1/2 -translate-x-1/2 w-72 p-4 rounded-xl shadow-xl`}
+            style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
           >
             {/* 箭头 */}
             <div
-              className={`absolute left-1/2 -translate-x-1/2 w-3 h-3 rotate-45 bg-cyber-bg-card border-${
-                position === 'top' ? 'bottom' : 'top'
-              } border-gray-700`}
+              className={`absolute left-1/2 -translate-x-1/2 w-3 h-3 rotate-45`}
               style={{
+                backgroundColor: 'var(--bg-card)',
+                borderLeft: position === 'top' ? 'none' : `1px solid var(--border-color)`,
+                borderRight: position === 'top' ? 'none' : `1px solid var(--border-color)`,
+                borderTop: position === 'top' ? 'none' : `1px solid var(--border-color)`,
+                borderBottom: position === 'top' ? `1px solid var(--border-color)` : 'none',
                 [position === 'top' ? 'bottom' : 'top']: '-6px',
-                [position === 'top' ? 'border-b' : 'border-t']: 'none',
-                [position === 'top' ? 'border-r' : 'border-l']: 'none',
-                [position === 'top' ? 'border-l' : 'border-r']: 'none',
               }}
             />
 
             {/* 标题 */}
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-sm font-medium text-cyber-accent-cyan">
+              <span className="text-sm font-medium" style={{ color: 'var(--accent-cyan)' }}>
                 {term.name}
               </span>
             </div>
 
             {/* 解释 */}
-            <p className="text-sm text-gray-300 mb-2">
+            <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>
               {depthMode === 'simple' ? term.shortExplain : term.detailExplain}
             </p>
 
             {/* 类比（如果有） */}
             {term.analogy && depthMode === 'simple' && (
-              <p className="text-xs text-gray-500 italic">
+              <p className="text-xs italic" style={{ color: 'var(--text-muted)' }}>
                 💡 {term.analogy}
               </p>
             )}
 
             {/* 详细模式下的类比 */}
             {term.analogy && depthMode === 'detailed' && (
-              <div className="mt-2 pt-2 border-t border-gray-700">
-                <p className="text-xs text-gray-400">
-                  <span className="text-cyber-accent-purple">类比：</span>
+              <div className="mt-2 pt-2" style={{ borderTop: '1px solid var(--border-color)' }}>
+                <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
+                  <span style={{ color: 'var(--accent-purple)' }}>类比：</span>
                   {term.analogy}
                 </p>
               </div>
@@ -121,7 +122,13 @@ export const TermBadge: React.FC<TermBadgeProps> = ({ termId, showIcon = true })
 
   return (
     <Tooltip termId={termId}>
-      <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-cyber-accent-purple/10 text-cyber-accent-purple text-xs font-medium hover:bg-cyber-accent-purple/20 transition-colors cursor-help">
+      <span
+        className="inline-flex items-center gap-1 px-2 py-1 rounded-md text-xs font-medium transition-colors cursor-help"
+        style={{
+          backgroundColor: 'rgba(102, 126, 234, 0.1)',
+          color: 'var(--accent-purple)'
+        }}
+      >
         {showIcon && <span>📚</span>}
         {term.name.split(' ')[0]}
       </span>
@@ -139,7 +146,10 @@ interface HighlightTermProps {
 export const HighlightTerm: React.FC<HighlightTermProps> = ({ termId, children, className = '' }) => {
   return (
     <Tooltip termId={termId}>
-      <span className={`text-cyber-accent-cyan font-medium hover:text-cyber-accent-purple transition-colors ${className}`}>
+      <span
+        className={`font-medium transition-colors ${className}`}
+        style={{ color: 'var(--accent-cyan)' }}
+      >
         {children}
       </span>
     </Tooltip>

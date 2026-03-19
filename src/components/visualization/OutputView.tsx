@@ -15,7 +15,8 @@ export const OutputView: React.FC = () => {
         <motion.h2
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-3xl font-bold text-white mb-2"
+          className="text-3xl font-bold mb-2"
+          style={{ color: 'var(--text-primary)' }}
         >
           {step.name}
         </motion.h2>
@@ -23,7 +24,7 @@ export const OutputView: React.FC = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-400"
+          style={{ color: 'var(--text-secondary)' }}
         >
           {step.description}
         </motion.p>
@@ -36,7 +37,7 @@ export const OutputView: React.FC = () => {
         transition={{ delay: 0.3 }}
         className="max-w-2xl mx-auto text-center"
       >
-        <p className="text-gray-300">
+        <p style={{ color: 'var(--text-primary)' }}>
           经过所有层的处理后，模型输出每个词的<HighlightTerm termId="probability">概率分布</HighlightTerm>。
           概率最高的词就是模型的预测结果。
         </p>
@@ -44,7 +45,7 @@ export const OutputView: React.FC = () => {
 
       {/* 输出可视化 */}
       <div className="flex justify-center">
-        <div className="w-full max-w-4xl bg-cyber-bg-card rounded-2xl border border-gray-800 p-6">
+        <div className="w-full max-w-4xl rounded-2xl p-6" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
           {example.output.type === 'classification' && (
             /* 分类输出 */
             <div className="space-y-6">
@@ -77,12 +78,12 @@ export const OutputView: React.FC = () => {
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-xl font-bold text-white">
+                        <span className="text-xl font-bold" style={{ color: 'var(--text-primary)' }}>
                           {(pred.probability * 100).toFixed(0)}%
                         </span>
                       </div>
                     </div>
-                    <span className="text-gray-300">{pred.label}</span>
+                    <span style={{ color: 'var(--text-primary)' }}>{pred.label}</span>
                   </motion.div>
                 ))}
               </div>
@@ -93,11 +94,12 @@ export const OutputView: React.FC = () => {
             /* 生成输出 */
             <div className="space-y-6">
               <div className="text-center">
-                <p className="text-gray-400 text-sm mb-2">生成结果</p>
+                <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>生成结果</p>
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
-                  className="text-xl text-white bg-cyber-bg-secondary rounded-lg p-4 inline-block"
+                  className="text-xl rounded-lg p-4 inline-block"
+                  style={{ backgroundColor: 'var(--bg-secondary)', color: 'var(--text-primary)' }}
                 >
                   {example.input.text}
                   <span className="text-cyber-accent-cyan">{example.output.generatedText}</span>
@@ -106,7 +108,7 @@ export const OutputView: React.FC = () => {
 
               {depthMode === 'detailed' && example.generation && (
                 <div className="mt-6">
-                  <p className="text-gray-400 text-sm mb-3 text-center">逐词生成过程</p>
+                  <p className="text-sm mb-3 text-center" style={{ color: 'var(--text-secondary)' }}>逐词生成过程</p>
                   <div className="flex justify-center gap-2 flex-wrap">
                     {example.generation.steps.map((step, i) => (
                       <motion.div
@@ -117,7 +119,7 @@ export const OutputView: React.FC = () => {
                         className="flex flex-col items-center"
                       >
                         <span className="token text-sm mb-1">{step.token}</span>
-                        <span className="text-xs text-gray-500">{(step.prob * 100).toFixed(0)}%</span>
+                        <span className="text-xs" style={{ color: 'var(--text-muted)' }}>{(step.prob * 100).toFixed(0)}%</span>
                       </motion.div>
                     ))}
                   </div>
@@ -130,8 +132,8 @@ export const OutputView: React.FC = () => {
             /* 问答输出 */
             <div className="space-y-6 text-center">
               <div>
-                <p className="text-gray-400 text-sm mb-2">问题</p>
-                <p className="text-white text-lg">{example.input.text}</p>
+                <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>问题</p>
+                <p className="text-lg" style={{ color: 'var(--text-primary)' }}>{example.input.text}</p>
               </div>
 
               <motion.div
@@ -139,9 +141,9 @@ export const OutputView: React.FC = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.5 }}
               >
-                <p className="text-gray-400 text-sm mb-2">答案</p>
+                <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>答案</p>
                 <p className="text-3xl font-bold text-cyber-accent-cyan">{example.output.answer}</p>
-                <p className="text-sm text-gray-500 mt-1">置信度: {(example.output.confidence! * 100).toFixed(0)}%</p>
+                <p className="text-sm mt-1" style={{ color: 'var(--text-muted)' }}>置信度: {(example.output.confidence! * 100).toFixed(0)}%</p>
               </motion.div>
 
               {depthMode === 'detailed' && example.output.relatedKnowledge && (
@@ -151,8 +153,8 @@ export const OutputView: React.FC = () => {
                   transition={{ delay: 0.7 }}
                   className="mt-6 text-left"
                 >
-                  <p className="text-gray-400 text-sm mb-2">相关知识</p>
-                  <ul className="text-sm text-gray-300 space-y-1">
+                  <p className="text-sm mb-2" style={{ color: 'var(--text-secondary)' }}>相关知识</p>
+                  <ul className="text-sm space-y-1" style={{ color: 'var(--text-primary)' }}>
                     {example.output.relatedKnowledge.map((k, i) => (
                       <li key={i} className="flex gap-2">
                         <span className="text-cyber-accent-purple">•</span>
@@ -172,12 +174,13 @@ export const OutputView: React.FC = () => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5 }}
-        className="bg-cyber-bg-card rounded-xl p-6 border border-gray-800"
+        className="rounded-xl p-6"
+        style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}
       >
         {depthMode === 'simple' ? (
           <div className="space-y-3">
-            <p className="text-gray-300">{example.simpleMode.summary}</p>
-            <ul className="text-sm text-gray-400 space-y-1">
+            <p style={{ color: 'var(--text-primary)' }}>{example.simpleMode.summary}</p>
+            <ul className="text-sm space-y-1" style={{ color: 'var(--text-secondary)' }}>
               {example.simpleMode.keyPoints.map((point, i) => (
                 <li key={i}>• {point}</li>
               ))}
@@ -185,11 +188,11 @@ export const OutputView: React.FC = () => {
           </div>
         ) : (
           <div className="space-y-3">
-            <p className="text-gray-300">
+            <p style={{ color: 'var(--text-primary)' }}>
               最终输出经过<HighlightTerm termId="linear">Linear层</HighlightTerm>映射到词表大小，
               然后通过<HighlightTerm termId="softmax">Softmax</HighlightTerm>转换为概率分布。
             </p>
-            <p className="text-gray-400 text-sm">
+            <p className="text-sm" style={{ color: 'var(--text-secondary)' }}>
               模型选择概率最高的词作为输出，或者使用采样策略生成更多样化的结果。
             </p>
           </div>
